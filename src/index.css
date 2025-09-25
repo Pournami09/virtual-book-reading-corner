@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-amber-900 font-sans;
+    margin: 0;
+    min-height: 100vh;
+    background: #ffffff;
+    background-image: 
+      linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+      linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-attachment: fixed;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus {
+    outline: 2px solid #d97706;
+    outline-offset: 2px;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    body {
+      background: #ffffff;
+      color: #000000;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .font-handwriting {
+    font-family: 'Kalam', cursive;
+  }
+
+  .btn-primary {
+    @apply bg-slate-600 hover:bg-slate-700 focus:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium shadow-lg min-h-[44px] min-w-[44px] text-base;
+  }
+  
+  .btn-secondary {
+    @apply bg-slate-800/90 hover:bg-slate-800 focus:bg-slate-800 text-slate-50 px-4 py-2 rounded-lg transition-colors duration-200 font-medium border border-slate-600 min-h-[44px] min-w-[44px] text-base;
+  }
+
+  .card {
+    @apply bg-slate-50/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 border border-slate-600/30;
+  }
+
+  /* Typography - All text 18px */
+  h1, h2, h3, h4, h5, h6, p, .text-xs, .text-sm, .text-base, .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-8xl {
+    font-size: 18px !important;
+    line-height: 1.5;
+  }
+
+  .book-spine {
+    @apply bg-gradient-to-b from-cozy-500 to-cozy-700 text-white p-3 rounded-l-lg shadow-book cursor-pointer transition-all duration-300 hover:shadow-cozy hover:scale-105;
+  }
+
+  .vinyl-record {
+    @apply w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full border-4 border-gray-700 shadow-lg;
+  }
+
+  .cozy-room {
+    /* Background removed - using clean white brick wall only */
+  }
+
+  .warm-glow {
+    box-shadow: 
+      0 0 20px rgba(255, 193, 7, 0.3),
+      0 0 40px rgba(255, 193, 7, 0.2),
+      0 0 60px rgba(255, 193, 7, 0.1);
+  }
+
+  .candle-flicker {
+    animation: flicker 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes flicker {
+    0%, 100% { 
+      opacity: 1; 
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 0.8; 
+      transform: scale(1.02);
+    }
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Record Player Animations */
+  @keyframes recordSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes tonearmMove {
+    0% { transform: rotate(331.369deg); }
+    100% { transform: rotate(358.905deg); }
+  }
+
+  .record-spinning {
+    animation: recordSpin 3s linear infinite;
+  }
+
+  .tonearm-playing {
+    animation: tonearmMove 0.6s ease-in-out forwards;
+  }
+
+  .tonearm-stopped {
+    animation: tonearmMove 0.6s ease-in-out reverse;
+  }
+
+  /* Vinyl texture effect */
+  .vinyl-texture {
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(255,255,255,0.08) 0%, transparent 50%);
+  }
+
+  /* Wooden texture effect */
+  .wooden-texture {
+    background-image: 
+      linear-gradient(90deg, rgba(139, 69, 19, 0.1) 0%, transparent 1px),
+      linear-gradient(rgba(139, 69, 19, 0.1) 0%, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
