@@ -12,7 +12,7 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { Search as SearchIcon, MenuBook, CheckCircle, PlayCircle } from '@mui/icons-material';
-import BookSpine from './BookSpine';
+import Book3DEnhanced from './Book3DEnhanced';
 import PlantDecoration from './PlantDecoration';
 import { libraryService } from '../services/libraryService';
 
@@ -163,7 +163,7 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
           >
             {books.length > 0 ? (
               books.slice(0, 5).map((book, index) => (
-                <BookSpine 
+                <Book3DEnhanced 
                   key={book.id} 
                   book={book} 
                   index={index}
