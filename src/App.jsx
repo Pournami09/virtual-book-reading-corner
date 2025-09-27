@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { ThemeProvider, CssBaseline, Box } from '@mui/material';
+import { materialTheme } from './theme/materialTheme';
 import Header from './components/Header'
 import Bookshelf from './components/Bookshelf'
 import StickyNote from './components/StickyNote'
@@ -43,9 +45,9 @@ function App() {
       default:
         return (
           <>
-            <main className="py-8">
+            <Box component="main" sx={{ py: 4 }}>
               <Bookshelf key={libraryUpdateTrigger} onBookSelect={handleBookSelect} onSearchClick={handleSearchClick} />
-            </main>
+            </Box>
             <StickyNote />
           </>
         );
@@ -53,9 +55,18 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen cozy-room">
-      {renderCurrentPage()}
-    </div>
+    <ThemeProvider theme={materialTheme}>
+      <CssBaseline />
+      <Box 
+        sx={{ 
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #FEF7FF 0%, #E8DEF8 100%)',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {renderCurrentPage()}
+      </Box>
+    </ThemeProvider>
   )
 }
 

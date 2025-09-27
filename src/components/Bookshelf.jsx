@@ -1,11 +1,25 @@
 import { useState, useEffect } from 'react';
-import { Search } from 'lucide-react';
+import { 
+  Box, 
+  Typography, 
+  Button, 
+  Card, 
+  CardContent, 
+  Grid, 
+  Chip,
+  Fade,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import { Search as SearchIcon, MenuBook, CheckCircle, PlayCircle } from '@mui/icons-material';
 import BookSpine from './BookSpine';
 import PlantDecoration from './PlantDecoration';
 import { libraryService } from '../services/libraryService';
 
 const Bookshelf = ({ onBookSelect, onSearchClick }) => {
   const [books, setBooks] = useState([]);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     loadLibrary();
@@ -20,95 +34,214 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
     onBookSelect?.(book);
   };
 
+  const stats = [
+    {
+      label: 'Total Books',
+      value: books.length,
+      icon: <MenuBook />,
+      color: 'primary'
+    },
+    {
+      label: 'Books Read',
+      value: books.filter(book => book.isRead).length,
+      icon: <CheckCircle />,
+      color: 'success'
+    },
+    {
+      label: 'In Progress',
+      value: books.filter(book => book.readingProgress > 0 && book.readingProgress < 100).length,
+      icon: <PlayCircle />,
+      color: 'warning'
+    }
+  ];
+
   return (
-    <div className="relative w-full max-w-4xl mx-auto">
-      {/* Simple Header with Search */}
-      <div className="text-center mb-32 pt-16">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="font-handwriting text-slate-800">
-            welcome to your cozy reading corner, Poro
-          </h1>
-          <button
-            onClick={onSearchClick}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg transition-colors duration-200"
-            aria-label="Search for books"
+    <Box sx={{ position: 'relative', width: '100%', maxWidth: '4xl', mx: 'auto', px: 2 }}>
+      {/* Welcome Section */}
+      <Fade in timeout={800}>
+        <Box sx={{ textAlign: 'center', mb: 8, pt: 4 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
+            <Typography 
+              variant="h4" 
+              component="h1"
+              sx={{ 
+                fontWeight: 400,
+                color: 'text.primary',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: { xs: '1.5rem', md: '2rem' }
+              }}
+            >
+              Welcome to your cozy reading corner, Poro
+            </Typography>
+            <Button
+              variant="contained"
+              startIcon={<SearchIcon />}
+              onClick={onSearchClick}
+              sx={{
+                borderRadius: 3,
+                textTransform: 'none',
+                px: 3,
+                py: 1.5,
+                boxShadow: '0px 2px 8px rgba(103, 80, 164, 0.3)',
+                '&:hover': {
+                  boxShadow: '0px 4px 12px rgba(103, 80, 164, 0.4)',
+                }
+              }}
+            >
+              Search Books
+            </Button>
+          </Box>
+        </Box>
+      </Fade>
+
+      {/* Bookshelf Container */}
+      <Fade in timeout={1000}>
+        <Box sx={{ position: 'relative', mb: 8 }}>
+          {/* Bookshelf Base */}
+          <Box
+            sx={{
+              position: 'relative',
+              background: 'linear-gradient(180deg, #8B4513 0%, #A0522D 100%)',
+              borderRadius: '12px 12px 0 0',
+              height: 48,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              maxWidth: '2xl',
+              mx: 'auto',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: 'linear-gradient(90deg, rgba(139, 69, 19, 0.3) 0%, transparent 50%, rgba(139, 69, 19, 0.3) 100%)',
+                borderRadius: '12px 12px 0 0'
+              },
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                top: '8px',
+                left: '12px',
+                right: '12px',
+                height: '2px',
+                background: 'rgba(160, 82, 45, 0.3)',
+                borderRadius: '1px'
+              }
+            }}
           >
-            <Search className="w-4 h-4" />
-            Search Books
-          </button>
-        </div>
-      </div>
-
-      {/* Bookshelf container */}
-      <div className="relative">
-        {/* Bookshelf base */}
-        <div className="relative bg-gradient-to-b from-amber-800 to-amber-900 rounded-t-xl shadow-lg h-12 flex items-center justify-center max-w-2xl mx-auto wooden-texture">
-          {/* Wood grain effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-amber-700/30 via-transparent to-amber-700/30 rounded-t-xl"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-amber-600/20 to-transparent rounded-t-xl"></div>
-          
-          {/* Wood grain lines */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-1 left-0 right-0 h-px bg-amber-600"></div>
-            <div className="absolute top-3 left-0 right-0 h-px bg-amber-600"></div>
-            <div className="absolute top-5 left-0 right-0 h-px bg-amber-600"></div>
-            <div className="absolute top-7 left-0 right-0 h-px bg-amber-600"></div>
-            <div className="absolute top-9 left-0 right-0 h-px bg-amber-600"></div>
-          </div>
-          
-          {/* Shelf details */}
-          <div className="absolute top-1 left-2 right-2 h-0.5 bg-amber-600/50 rounded-full"></div>
-          <div className="absolute top-2 left-3 right-3 h-0.5 bg-amber-500/30 rounded-full"></div>
-        </div>
-
-        {/* Books container */}
-        <div className="absolute -top-48 left-1/2 transform -translate-x-1/2 flex items-end space-x-1">
-          {books.length > 0 ? (
-            books.slice(0, 5).map((book, index) => (
-              <BookSpine 
-                key={book.id} 
-                book={book} 
-                index={index}
-                onClick={() => handleBookSelect(book)}
+            {/* Wood grain lines */}
+            {[...Array(5)].map((_, i) => (
+              <Box
+                key={i}
+                sx={{
+                  position: 'absolute',
+                  top: `${4 + i * 8}px`,
+                  left: 0,
+                  right: 0,
+                  height: '1px',
+                  background: 'rgba(139, 69, 19, 0.2)',
+                  opacity: 0.6
+                }}
               />
-            ))
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-amber-700 text-lg">Your bookshelf is empty</p>
-              <p className="text-amber-600 text-sm mt-2">Search for books above to add them to your library</p>
-            </div>
-          )}
-        </div>
+            ))}
+          </Box>
 
-        {/* Plant decoration - positioned on top of shelf */}
-        <div className="absolute -top-6 right-8 md:right-12">
-          <PlantDecoration />
-        </div>
-      </div>
+          {/* Books Container */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: -192,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              alignItems: 'end',
+              gap: 0.5
+            }}
+          >
+            {books.length > 0 ? (
+              books.slice(0, 5).map((book, index) => (
+                <BookSpine 
+                  key={book.id} 
+                  book={book} 
+                  index={index}
+                  onClick={() => handleBookSelect(book)}
+                />
+              ))
+            ) : (
+              <Card sx={{ 
+                minWidth: 200, 
+                textAlign: 'center',
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(103, 80, 164, 0.12)'
+              }}>
+                <CardContent>
+                  <Typography variant="h6" color="text.secondary" gutterBottom>
+                    Your bookshelf is empty
+                  </Typography>
+                  <Typography variant="body2" color="text.disabled">
+                    Search for books above to add them to your library
+                  </Typography>
+                </CardContent>
+              </Card>
+            )}
+          </Box>
+
+          {/* Plant Decoration */}
+          <Box sx={{ position: 'absolute', top: -24, right: { xs: 2, md: 4 } }}>
+            <PlantDecoration />
+          </Box>
+        </Box>
+      </Fade>
 
       {/* Library Statistics */}
-      <div className="mt-16 text-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-          <div className="bg-slate-50/95 backdrop-blur-sm rounded-lg shadow-lg p-4 border border-slate-600/30">
-            <h3 className="font-semibold text-slate-800 mb-1">Total Books</h3>
-            <p className="font-bold text-slate-600">{books.length}</p>
-          </div>
-          <div className="bg-slate-50/95 backdrop-blur-sm rounded-lg shadow-lg p-4 border border-slate-600/30">
-            <h3 className="font-semibold text-slate-800 mb-1">Books Read</h3>
-            <p className="font-bold text-slate-600">
-              {books.filter(book => book.isRead).length}
-            </p>
-          </div>
-          <div className="bg-slate-50/95 backdrop-blur-sm rounded-lg shadow-lg p-4 border border-slate-600/30">
-            <h3 className="font-semibold text-slate-800 mb-1">In Progress</h3>
-            <p className="font-bold text-slate-600">
-              {books.filter(book => book.readingProgress > 0 && book.readingProgress < 100).length}
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
+      <Fade in timeout={1200}>
+        <Box sx={{ mt: 4 }}>
+          <Grid container spacing={2} justifyContent="center">
+            {stats.map((stat, index) => (
+              <Grid item xs={12} sm={4} key={stat.label}>
+                <Card
+                  sx={{
+                    textAlign: 'center',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(103, 80, 164, 0.12)',
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0px 8px 24px rgba(103, 80, 164, 0.15)'
+                    }
+                  }}
+                >
+                  <CardContent sx={{ py: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+                      <Box sx={{ 
+                        color: `${stat.color}.main`,
+                        mr: 1,
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}>
+                        {stat.icon}
+                      </Box>
+                      <Typography variant="h6" component="div" sx={{ fontWeight: 500 }}>
+                        {stat.value}
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" color="text.secondary">
+                      {stat.label}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Fade>
+    </Box>
   );
 };
 
