@@ -8,7 +8,7 @@ const PlantDecoration = () => {
   const imgRightLeaves = "http://localhost:3845/assets/7a3d556302d5e5558a29e74954bfc8129ef374b3.svg";
 
   return (
-    <div className="relative w-24 h-32 flex items-end justify-center">
+    <div className="relative w-16 h-20 flex items-end justify-center">
       <div className="relative size-full" data-name="Pot">
         {/* Pot base */}
         <div className="absolute bottom-0 left-[5.08%] right-[5.8%] top-[12.53%]" data-name="Vector">

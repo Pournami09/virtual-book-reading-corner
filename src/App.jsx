@@ -60,7 +60,10 @@ function App() {
       <Box 
         sx={{ 
           minHeight: '100vh',
-          background: 'linear-gradient(135deg, #FEF7FF 0%, #E8DEF8 100%)',
+          background: '#ffffff',
+          backgroundImage: 
+            'linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
           backgroundAttachment: 'fixed'
         }}
       >

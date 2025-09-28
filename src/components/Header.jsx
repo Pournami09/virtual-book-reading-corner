@@ -34,9 +34,9 @@ const Header = ({ onLibraryUpdate, onSearchClick }) => {
       position="sticky" 
       elevation={0}
       sx={{ 
-        background: 'rgba(254, 247, 255, 0.8)',
+        background: 'rgba(255, 255, 255, 0.9)',
         backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(103, 80, 164, 0.12)',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
         color: 'text.primary'
       }}
     >

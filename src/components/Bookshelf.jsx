@@ -65,7 +65,18 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
   ];
 
   return (
-    <Box sx={{ position: 'relative', width: '100%', maxWidth: '4xl', mx: 'auto', px: 2 }}>
+    <Box sx={{ 
+      position: 'relative', 
+      width: '100%', 
+      maxWidth: '4xl', 
+      mx: 'auto', 
+      px: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh'
+    }}>
       {/* Welcome Section */}
       <Fade in timeout={800}>
         <Box sx={{ textAlign: 'center', mb: 8, pt: 4 }}>
@@ -105,7 +116,12 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
 
       {/* Bookshelf Container */}
       <Fade in timeout={1000}>
-        <Box sx={{ position: 'relative', mb: 8 }}>
+        <Box sx={{ 
+          position: 'relative', 
+          mb: 8,
+          transform: 'scale(0.7)',
+          transformOrigin: 'center'
+        }}>
           {/* Bookshelf Base */}
           <Box
             sx={{
@@ -204,22 +220,34 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
                 );
               })
             ) : (
-              <Card sx={{ 
-                minWidth: 200, 
-                textAlign: 'center',
-                background: 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(103, 80, 164, 0.12)'
-              }}>
-                <CardContent>
-                  <Typography variant="h6" color="text.secondary" gutterBottom>
-                    Your bookshelf is empty
-                  </Typography>
-                  <Typography variant="body2" color="text.disabled">
-                    Search for books above to add them to your library
-                  </Typography>
-                </CardContent>
-              </Card>
+              <Box
+                onClick={onSearchClick}
+                sx={{
+                  minWidth: 200,
+                  height: 240,
+                  border: '2px dashed #ccc',
+                  borderRadius: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  background: 'rgba(255, 255, 255, 0.5)',
+                  '&:hover': {
+                    borderColor: '#6750A4',
+                    background: 'rgba(103, 80, 164, 0.1)',
+                    transform: 'scale(1.05)'
+                  }
+                }}
+              >
+                <Typography variant="h6" color="text.secondary" gutterBottom>
+                  📚 Empty Shelf
+                </Typography>
+                <Typography variant="body2" color="text.disabled" textAlign="center">
+                  Click to search for books
+                </Typography>
+              </Box>
             )}
           </Box>
 
