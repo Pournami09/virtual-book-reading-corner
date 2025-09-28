@@ -12,12 +12,13 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { Search as SearchIcon, MenuBook, CheckCircle, PlayCircle } from '@mui/icons-material';
-import Book3DEnhanced from './Book3DEnhanced';
+import Book3DAdvanced from './Book3DAdvanced';
 import PlantDecoration from './PlantDecoration';
 import { libraryService } from '../services/libraryService';
 
 const Bookshelf = ({ onBookSelect, onSearchClick }) => {
   const [books, setBooks] = useState([]);
+  const [hoveredBookIndex, setHoveredBookIndex] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -32,6 +33,14 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
 
   const handleBookSelect = (book) => {
     onBookSelect?.(book);
+  };
+
+  const handleBookHover = (index) => {
+    setHoveredBookIndex(index);
+  };
+
+  const handleBookLeave = () => {
+    setHoveredBookIndex(null);
   };
 
   const stats = [
@@ -162,14 +171,38 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
             }}
           >
             {books.length > 0 ? (
-              books.slice(0, 5).map((book, index) => (
-                <Book3DEnhanced 
-                  key={book.id} 
-                  book={book} 
-                  index={index}
-                  onClick={() => handleBookSelect(book)}
-                />
-              ))
+              books.slice(0, 5).map((book, index) => {
+                const isHovered = hoveredBookIndex === index;
+                const isAdjacent = hoveredBookIndex !== null && Math.abs(hoveredBookIndex - index) === 1;
+                const isLeftAdjacent = isAdjacent && index < hoveredBookIndex;
+                const isRightAdjacent = isAdjacent && index > hoveredBookIndex;
+                
+                return (
+                  <Box
+                    key={book.id}
+                    sx={{
+                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      transform: isAdjacent 
+                        ? isLeftAdjacent 
+                          ? 'translateX(-20px) translateY(-5px)' 
+                          : 'translateX(20px) translateY(-5px)'
+                        : hoveredBookIndex !== null && hoveredBookIndex !== index
+                          ? 'translateY(-8px)'
+                          : 'translateX(0px) translateY(0px)',
+                      zIndex: isHovered ? 20 : isAdjacent ? 10 : 1
+                    }}
+                  >
+                    <Book3DAdvanced 
+                      book={book} 
+                      index={index}
+                      isHovered={isHovered}
+                      onClick={() => handleBookSelect(book)}
+                      onHover={handleBookHover}
+                      onLeave={handleBookLeave}
+                    />
+                  </Box>
+                );
+              })
             ) : (
               <Card sx={{ 
                 minWidth: 200, 
