@@ -70,17 +70,19 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
       width: '100%', 
       maxWidth: '4xl', 
       mx: 'auto', 
-      px: 2,
+      px: 4,
+      py: 6,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      minHeight: '100vh'
+      minHeight: '100vh',
+      gap: 4
     }}>
       {/* Welcome Section */}
       <Fade in timeout={800}>
-        <Box sx={{ textAlign: 'center', mb: 8, pt: 4 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
+        <Box sx={{ textAlign: 'center', mb: 6, pt: 2, px: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
             <Typography 
               variant="h4" 
               component="h1"
@@ -179,7 +181,7 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
             sx={{
               position: 'absolute',
               top: -192,
-              left: '50%',
+              left: '30%',
               transform: 'translateX(-50%)',
               display: 'flex',
               alignItems: 'end',
@@ -251,8 +253,13 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
             )}
           </Box>
 
-          {/* Plant Decoration */}
-          <Box sx={{ position: 'absolute', top: -24, right: { xs: 2, md: 4 } }}>
+          {/* Plant Decoration - Positioned on right end of shelf */}
+          <Box sx={{ 
+            position: 'absolute', 
+            top: -24, 
+            right: '15%',
+            transform: 'translateX(50%)'
+          }}>
             <PlantDecoration />
           </Box>
         </Box>
@@ -260,8 +267,8 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
 
       {/* Library Statistics */}
       <Fade in timeout={1200}>
-        <Box sx={{ mt: 4 }}>
-          <Grid container spacing={2} justifyContent="center">
+        <Box sx={{ mt: 6, px: 2 }}>
+          <Grid container spacing={3} justifyContent="center">
             {stats.map((stat, index) => (
               <Grid item xs={12} sm={4} key={stat.label}>
                 <Card

@@ -74,7 +74,7 @@ const Book3DAdvanced = ({ book, index, onClick, isHovered, onHover, onLeave }) =
             height: 240,
             transformStyle: 'preserve-3d',
             transform: isHovered 
-              ? 'rotateY(-45deg) rotateX(5deg) rotateZ(-2deg)' 
+              ? 'rotateY(-90deg) rotateX(0deg) rotateZ(0deg)' 
               : 'rotateY(0deg) rotateX(0deg) rotateZ(0deg)',
             transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
@@ -165,7 +165,7 @@ const Book3DAdvanced = ({ book, index, onClick, isHovered, onHover, onLeave }) =
               background: `linear-gradient(135deg, ${color} 0%, ${color}CC 50%, ${color}AA 100%)`,
               borderRadius: '8px 0 0 8px',
               boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)',
-              transform: 'rotateY(45deg) translateZ(0px)',
+              transform: 'rotateY(90deg) translateZ(0px)',
               transformOrigin: 'left center',
               opacity: isHovered ? 1 : 0,
               transition: 'opacity 0.4s ease',

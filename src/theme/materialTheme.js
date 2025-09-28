@@ -28,7 +28,7 @@ export const materialTheme = createTheme({
       dark: '#E6E0E9',
     },
     background: {
-      default: '#FEF7FF',
+      default: '#FFFFFF',
       paper: '#FFFFFF',
     },
     text: {
