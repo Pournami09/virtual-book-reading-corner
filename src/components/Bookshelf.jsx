@@ -82,7 +82,7 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
       {/* Welcome Section */}
       <Fade in timeout={800}>
         <Box sx={{ textAlign: 'center', mb: 6, pt: 2, px: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4, flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
             <Typography 
               variant="h4" 
               component="h1"
@@ -134,7 +134,7 @@ const Bookshelf = ({ onBookSelect, onSearchClick }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              maxWidth: '2xl',
+              width: '70%',
               mx: 'auto',
               boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
               '&::before': {
